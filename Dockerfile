@@ -1,4 +1,3 @@
 FROM nginx
-WORKDIR /usr/share/nginx/html
-COPY img ./img/
-COPY index.html .
+COPY index.html /usr/share/nginx/html/
+COPY img /usr/share/nginx/html/img/
