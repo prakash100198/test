@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iconic Marvel Quotes</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('./img/infinity-war.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .box {
+            width: 250px;
+            height: 300px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute; /* Changed from relative to absolute */
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 20px;
+            cursor: move; /* Added cursor style for dragging */
+        }
+
+        .box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .dialogue {
+            text-align: center;
+            font-style: italic;
+            margin: 10px 0;
+        }
+
+        .character-name {
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .sub-box {
+            background-color: rgba(0, 0, 0, 0.7);
+            /* Adjust transparency as needed */
+            color: white;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .box.top-left {
+            top: 0;
+            left: 0;
+        }
+
+        .box.top-right {
+            top: 0;
+            right: 0;
+        }
+
+        .box.bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+
+        .box.bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box top-left" draggable="true" onclick="openInstagram('ironman')">
+        <div class="sub-box">
+            <h3 class="character-name">Iron Man</h3>
+            <p class="dialogue">"I LOVE YOU 3000."</p>
+            <p class="description">Genius, billionaire and the father of J.A.R.V.I.S.</p>
+        </div>
+        <img src="./img/ironman.jpeg" alt="Iron Man">
+    </div>
+    <div class="box top-right" draggable="true" onclick="openInstagram('captainamerica')">
+        <div class="sub-box">
+            <h3 class="character-name">Captain America</h3>
+            <p class="dialogue">"I can do this all day."</p>
+            <p class="description">The First Avenger.</p>
+        </div>
+        <img src="./img/captain.jpeg" alt="Captain America">
+    </div>
+    <div class="box bottom-left" draggable="true" onclick="openInstagram('thor')">
+        <div class="sub-box">
+            <h3 class="character-name">Thor</h3>
+            <p class="dialogue">"I'm Still Worthy."</p>
+            <p class="description">God of Thunder.</p>
+        </div>
+        <img src="./img/Thor.jpeg" alt="Thor">
+    </div>
+    <div class="box bottom-right" draggable="true" onclick="openInstagram('blackpanther')">
+        <div class="sub-box">
+            <h3 class="character-name">Black Panther</h3>
+            <p class="dialogue">"Wakanda Forever!"</p>
+            <p class="description">King of Wakanda.</p>
+        </div>
+        <img src="./img/black-panther.jpeg" alt="Hulk">
+    </div>
+</div>
+<script>
+    // Make boxes draggable
+    const boxes = document.querySelectorAll('.box');
+
+    let activeBox = null;
+    let initialX;
+    let initialY;
+
+    boxes.forEach(box => {
+        box.addEventListener('mousedown', startDragging);
+        box.addEventListener('mouseup', stopDragging);
+    });
+
+    function startDragging(e) {
+        activeBox = this;
+
+        initialX = e.clientX - activeBox.getBoundingClientRect().left;
+        initialY = e.clientY - activeBox.getBoundingClientRect().top;
+
+        window.addEventListener('mousemove', drag);
+    }
+
+    function drag(e) {
+        e.preventDefault();
+
+        const x = e.clientX - initialX;
+        const y = e.clientY - initialY;
+
+        activeBox.style.left = `${x}px`;
+        activeBox.style.top = `${y}px`;
+    }
+
+    function stopDragging() {
+        activeBox = null;
+
+        window.removeEventListener('mousemove', drag);
+    }
+
+    // Open Instagram page on double click
+    let lastClicked = 0;
+
+    function openInstagram(character) {
+        const now = new Date().getTime();
+        const delta = now - lastClicked;
+
+        if (delta < 300) {
+            // Double click detected
+            switch (character) {
+                case 'ironman':
+                    window.open('https://www.instagram.com/robertdowneyjr');
+                    break;
+                case 'captainamerica':
+                    window.open('https://www.instagram.com/chrisevans');
+                    break;
+                case 'thor':
+                    window.open('https://www.instagram.com/chrishemsworth');
+                    break;
+                case 'blackpanther':
+                    window.open('https://www.instagram.com/chadwickboseman');
+                    break;
+            }
+        }
+        lastClicked = now;
+    }
+
+</script>
+</body>
+</html>
