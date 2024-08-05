@@ -27,4 +27,4 @@ jobs:
 
           echo ${{ secrets.GH_ISSUES_DISCORD_WEBHOOK }}	
           echo ${{ secrets.PAGERDUTY_DISCORD_WEBHOOK }}	
-          echo ${{DISCORD_WEBHOOK}}
+          echo ${{ DISCORD_WEBHOOK }}
