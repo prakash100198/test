@@ -1,0 +1,30 @@
+
+name: Issue Created
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  extract-issue-body:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - if: github.event.label.name == 'pager-duty'
+        name: discord webhook
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.GH_ISSUES_DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK_FORUM: ${{ secrets.PAGERDUTY_DISCORD_WEBHOOK }}
+          ENABLE_FORUM: true
+        uses: devtron-labs/action-discord@master
+        with:
+          args: " ${{ github.event.issue.title }} ${{ github.event.issue.html_url }}"
+      - name: print all env 
+        run: |
+
+          echo ${{ github.event.label.name }}
+          echo "\n"
+          echo ${{ github.event.labels.name }}
+
+
